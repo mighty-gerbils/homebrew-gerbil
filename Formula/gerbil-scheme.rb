@@ -41,7 +41,7 @@ class GerbilScheme < Formula
     end
 
     system ENV.cc.to_s, "--version"
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}", "--enable-march=\"\""
     system "make", "-j#{nproc}"
     system "make", "install"
 
