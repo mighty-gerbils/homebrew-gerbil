@@ -9,7 +9,7 @@ class GerbilScheme < Formula
   # revision 2
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
-  depends_on "gcc"
+  depends_on "coreutils"
   depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "zlib"
@@ -28,10 +28,11 @@ class GerbilScheme < Formula
     if OS.mac?
       ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
       ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
-      ENV["GERBIL_GCC"] = "clang"
-      ENV["CC"] = "clang"
+      ENV["GERBIL_GCC"] = ENV.cc.to_s
+      ENV["CC"] = ENV.cc.to_s
     end
 
+    system ENV.cc.to_s, "--version"
     system "./configure", "--prefix=#{prefix}"
     system "make", "-j#{nproc}"
     system "make", "install"
