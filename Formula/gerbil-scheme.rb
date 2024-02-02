@@ -7,28 +7,19 @@ class GerbilScheme < Formula
       revision: "f7d8efcf4a25014b4b969eb6e21a3006d256f22e"
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git
   version "0.18.1"
-  revision 3
+  revision 2
   depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "zlib"
-  depends_on "llvm"
-  depends_on "coreutils"
+  depends_on "gcc"
 
-  
-
+  fails_with :clang do
+    cause "gerbil-scheme is built with GCC"
+  end
   def install
-    nproc = `nproc`.to_i - 1
-
-    ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
-    ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
-    ENV["LDFLAGS"] = "-L/opt/homebrew/opt/llvm/lib -L/usr/local/opt/llvm/lib"
-    ENV["CPPFLAGS"] = "-I/opt/homebrew/opt/llvm/include -I/usr/local/opt/llvm/include"
-    ENV["GERBIL_GCC"] = "clang"
-    ENV["CC"] = "clang"
-
-    system "clang", "--version"
     system "./configure", "--prefix=#{prefix}"
-    system "make", "-j#{nproc}"
+    system "make"
+    ENV.deparallelize
     system "make", "install"
     rm prefix/"bin"
     mkdir prefix/"bin"
