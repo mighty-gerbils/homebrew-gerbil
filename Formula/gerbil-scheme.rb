@@ -2,7 +2,8 @@ class GerbilScheme < Formula
   # This .rb file is tangled (AKA generated) from README.org
   desc "Opinionated dialect of Scheme designed for Systems Programming"
   homepage "https://cons.io"
-  url "https://github.com/mighty-gerbils/gerbil.git", using: :git,
+  url "https://github.com/mighty-gerbils/gerbil.git",
+      using: :git,
       revision: "f7d8efcf4a25014b4b969eb6e21a3006d256f22e"
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
