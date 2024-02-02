@@ -3,16 +3,15 @@ class GerbilScheme < Formula
   desc "Opinionated dialect of Scheme designed for Systems Programming"
   homepage "https://cons.io"
   url "https://github.com/mighty-gerbils/gerbil.git",
-      using: :git,
-      revision: "f7d8efcf4a25014b4b969eb6e21a3006d256f22e"
-  head "https://github.com/mighty-gerbils/gerbil.git", using: :git
-  license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
+      using: :git, revision: "92b1a2f642d6ebbcd3bd223ccc0af7ec0d9a42ad"
   version "0.18.1"
-  revision 2
+  license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
+  # revision 2
+  head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
+  depends_on "gcc"
   depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "zlib"
-  depends_on "gcc"
 
   fails_with :clang do
     cause "gerbil-scheme is built with GCC"
@@ -27,7 +26,7 @@ class GerbilScheme < Formula
 
     cd prefix/"current/bin" do
       ln "gerbil", prefix/"bin", verbose: true
-      cp %w(gxc gxensemble gxi gxpkg gxprof gxtags gxtest), prefix/"bin"
+      cp %w[gxc gxensemble gxi gxpkg gxprof gxtags gxtest], prefix/"bin"
     end
   end
   test do

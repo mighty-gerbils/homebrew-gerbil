@@ -1,0 +1,21 @@
+#+TITLE: Gerbil Homebrew Tap
+
+* How do I install these formulae?
+
+`brew install mighty-gerbils/gerbil/<formula>`
+
+Or `brew tap mighty-gerbils/gerbil` and then `brew install <formula>`.
+
+* Documentation
+
+`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
+
+* HACKING
+
+Trying to make it work for the github thing means fixing a bunch.
+
+==> brew style --fix  mighty-gerbils/gerbil/gerbil-scheme
+
+brew audit mighty-gerbils/gerbil/gerbil-scheme --online --new
+
+
