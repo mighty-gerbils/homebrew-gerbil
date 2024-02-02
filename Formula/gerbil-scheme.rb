@@ -8,20 +8,37 @@ class GerbilScheme < Formula
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
   # revision 2
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
+
   depends_on "gcc"
   depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "zlib"
 
-  fails_with :clang do
-    cause "gerbil-scheme is built with GCC"
+  on_macos do
+    depends_on "llvm"
   end
+
+  on_linux do
+    depends_on "gcc"
+  end
+
   def install
+    nproc = `nproc`.to_i - 1
+
+    if OS.mac?
+      ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
+      ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
+      ENV["GERBIL_GCC"] = "clang"
+      ENV["CC"] = "clang"
+    end
+
     system "./configure", "--prefix=#{prefix}"
-    system "make"
-    ENV.deparallelize
+    system "make", "-j#{nproc}"
     system "make", "install"
+
     rm prefix/"bin"
+    rm prefix/"lib"
+    rm prefix/"share"
     mkdir prefix/"bin"
 
     cd prefix/"current/bin" do
