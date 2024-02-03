@@ -1,24 +1,4 @@
-#+TITLE: Gerbil Homebrew Tap
-
-#+begin_src sh
-brew install mighty-gerbils/gerbil/gerbil-scheme
-#+end_src
-
-* How do I install these formulae?
-
-`brew install mighty-gerbils/gerbil/<formula>`
-
-Or `brew tap mighty-gerbils/gerbil` and then `brew install <formula>`.
-
-* Documentation
-
-`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
-
-* Packages: =gerbil-scheme= and =gerbil-scheme-clang=
-
-These packages are literate and tangled from this README.org.
-
-#+begin_src ruby :noweb-ref start-pkg
+class GerbilSchemeClang < Formula
   # This .rb file is tangled (AKA generated) from README.org
   desc "Opinionated dialect of Scheme designed for Systems Programming"
   homepage "https://cons.io"
@@ -26,8 +6,7 @@ These packages are literate and tangled from this README.org.
       using: :git, revision: "92b1a2f642d6ebbcd3bd223ccc0af7ec0d9a42ad"
   version "0.18.1"
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
-#+end_src
-#+begin_src ruby :noweb-ref deps-pkg
+  # revision 0
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
   depends_on "coreutils" => :build
@@ -35,9 +14,13 @@ These packages are literate and tangled from this README.org.
   depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "zlib"
-#+end_src
-#+begin_src ruby :noweb-ref install-pkg
-   def install
+  on_macos do
+    depends_on "llvm"
+  end
+  on_linux do
+    depends_on "llvm"
+  end
+  def install
     nproc = `nproc`.to_i - 1
 
     if OS.mac?
@@ -73,31 +56,4 @@ These packages are literate and tangled from this README.org.
   test do
     assert_equal "0123456789", shell_output("#{bin}/gxi -e \"(for-each write '(0 1 2 3 4 5 6 7 8 9))\"")
   end
-
-#+end_src
-#+begin_src ruby :tangle Formula/gerbil-scheme-clang.rb :noweb yes
-  class GerbilSchemeClang < Formula
-     <<start-pkg>>
-     # revision 0
-     <<deps-pkg>>
-     on_macos do
-        depends_on "llvm"
-     end
-     on_linux do
-        depends_on "llvm"
-     end
-    <<install-pkg>>
-  end
-
-
-    
-#+end_src
-* HACKING
-
-Trying to make it work for the github thing means fixing a bunch.
-
-==> brew style --fix  mighty-gerbils/gerbil/gerbil-scheme
-
-brew audit mighty-gerbils/gerbil/gerbil-scheme --online --new
-
-
+end
