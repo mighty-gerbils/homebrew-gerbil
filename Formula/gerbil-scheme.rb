@@ -56,6 +56,8 @@ class GerbilScheme < Formula
     system "make", "-j#{nproc}"
     system "make", "install"
 
+    # We get rid of all the non-LFSH stuff
+
     rm prefix/"bin"
     rm prefix/"lib"
     rm prefix/"share"
