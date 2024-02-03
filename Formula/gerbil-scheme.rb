@@ -10,10 +10,10 @@ class GerbilScheme < Formula
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
   bottle do
-    root_url "https://github.com/mighty-gerbils/homebrew-gerbil/releases/download/gerbil-scheme-0.18.1"
-    sha256 arm64_sonoma: "fa7caae13279a320aa99f636f9de78fe5fb348bac414a1f3673486dc977e0318"
-    sha256 ventura:      "0cea003f38d23d06b650dc033183d91a03bf6adafdb4b049f5f8081af322952e"
-    sha256 x86_64_linux: "525c66ccab46a2f5494f2a0c38dc7588ef63b0733b8be3029f1e58e794d06fd0"
+    root_url "https://github.com/mighty-gerbils/homebrew-gerbil/releases/download/gerbil-scheme-0.18.1_1"
+    sha256 arm64_sonoma: "6bc862680df0915594187d121923fa49eae1b5f0de618b5a24834b93286cb666"
+    sha256 ventura:      "1fb819d36964b5b7178a489d855c671514de6d72287c64d2f84854411bffa073"
+    sha256 x86_64_linux: "0d2510e14e89daf7b91963b99fe44d31bda321fc1e7b7d4e8239e512e252021e"
   end
 
   depends_on "pkg-config" => :build
