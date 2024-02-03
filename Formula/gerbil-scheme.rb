@@ -6,7 +6,7 @@ class GerbilScheme < Formula
       using: :git, revision: "92b1a2f642d6ebbcd3bd223ccc0af7ec0d9a42ad"
   version "0.18.1"
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
-  revision 1
+  revision 2
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
   bottle do
@@ -16,8 +16,8 @@ class GerbilScheme < Formula
     sha256 x86_64_linux: "0d2510e14e89daf7b91963b99fe44d31bda321fc1e7b7d4e8239e512e252021e"
   end
 
+  depends_on "coreutils" => :build
   depends_on "pkg-config" => :build
-  depends_on "coreutils"
   depends_on "openssl@3"
   depends_on "sqlite"
   depends_on "zlib"
@@ -27,7 +27,12 @@ class GerbilScheme < Formula
   end
 
   on_linux do
-    depends_on "gcc"
+    depends_on "gcc@13"
+  end
+
+  fails_with :gcc do
+    version "12" # Select new gcc
+    cause "Make it easy with all the same"
   end
 
   def install
@@ -36,9 +41,15 @@ class GerbilScheme < Formula
     if OS.mac?
       ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
       ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
-      ENV["GERBIL_GCC"] = ENV.cc.to_s
-      ENV["CC"] = ENV.cc.to_s
     end
+
+    if OS.linux?
+      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/bin")
+      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
+    end
+
+    ENV["GERBIL_GCC"] = ENV.cc.to_s
+    ENV["CC"] = ENV.cc.to_s
 
     system ENV.cc.to_s, "--version"
     system "./configure", "--prefix=#{prefix}", "--enable-march="

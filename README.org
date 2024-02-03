@@ -1,5 +1,9 @@
 #+TITLE: Gerbil Homebrew Tap
 
+#+begin_src sh
+brew install mighty-gerbils/gerbil/gerbil-scheme
+#+end_src
+
 * How do I install these formulae?
 
 `brew install mighty-gerbils/gerbil/<formula>`
