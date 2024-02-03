@@ -20,6 +20,9 @@ class GerbilSchemeClang < Formula
   on_linux do
     depends_on "llvm"
   end
+  fails_with :gcc do
+    cause "this is a clang build"
+  end
   def install
     nproc = `nproc`.to_i - 1
 

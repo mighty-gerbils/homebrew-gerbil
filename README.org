@@ -75,17 +75,40 @@ These packages are literate and tangled from this README.org.
   end
 
 #+end_src
+
+** Gcc
+#+begin_src ruby :autangle Formula/gerbil-scheme-clang.rb :noweb yes
+  class GerbilSchemeClang < Formula
+    <<start-pkg>>
+    # revision 0
+    <<deps-pkg>>
+    on_macos do
+       depends_on "llvm"
+    end
+    on_linux do
+       depends_on "llvm"
+    end
+    <<install-pkg>>
+  end
+
+
+    
+#+end_src
+** Clang
 #+begin_src ruby :tangle Formula/gerbil-scheme-clang.rb :noweb yes
   class GerbilSchemeClang < Formula
-     <<start-pkg>>
-     # revision 0
-     <<deps-pkg>>
-     on_macos do
-        depends_on "llvm"
-     end
-     on_linux do
-        depends_on "llvm"
-     end
+    <<start-pkg>>
+    # revision 0
+    <<deps-pkg>>
+    on_macos do
+       depends_on "llvm"
+    end
+    on_linux do
+       depends_on "llvm"
+    end
+    fails_with :gcc do
+      cause "this is a clang build"
+    end
     <<install-pkg>>
   end
 
