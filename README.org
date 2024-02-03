@@ -77,16 +77,20 @@ These packages are literate and tangled from this README.org.
 #+end_src
 
 ** Gcc
-#+begin_src ruby :autangle Formula/gerbil-scheme-clang.rb :noweb yes
-  class GerbilSchemeClang < Formula
+#+begin_src ruby :tangle Formula/gerbil-scheme.rb :noweb yes
+  class GerbilScheme < Formula
     <<start-pkg>>
-    # revision 0
+    revision 3
     <<deps-pkg>>
     on_macos do
-       depends_on "llvm"
+       depends_on "gcc@13"
     end
     on_linux do
-       depends_on "llvm"
+       depends_on "gcc@13"
+    end
+    fails_with :gcc do
+       version "12" # Select new gcc
+       cause "Make it easy with all the same"
     end
     <<install-pkg>>
   end
