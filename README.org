@@ -40,15 +40,15 @@ These packages are literate and tangled from this README.org.
    def install
     nproc = `nproc`.to_i - 1
 
-    if OS.mac?
-      ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
-      ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
-    end
+    # if OS.mac?
+    #   ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
+    #   ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
+    # end
 
-    if OS.linux?
-      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/bin")
-      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
-    end
+    # if OS.linux?
+    #   ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/bin")
+    #   ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
+    # end
 
     ENV["GERBIL_GCC"] = ENV.cc.to_s
     ENV["CC"] = ENV.cc.to_s
@@ -78,25 +78,30 @@ These packages are literate and tangled from this README.org.
 
 ** Gcc
 #+begin_src ruby :tangle Formula/gerbil-scheme.rb :noweb yes
-  class GerbilScheme < Formula
-    <<start-pkg>>
-    revision 3
-    <<deps-pkg>>
-    on_macos do
-       depends_on "gcc@13"
-    end
-    on_linux do
-       depends_on "gcc@13"
-    end
-    fails_with :gcc do
-       version "12" # Select new gcc
-       cause "Make it easy with all the same"
-    end
-    <<install-pkg>>
-  end
+   class GerbilScheme < Formula
+      <<start-pkg>>
+      revision 3
+      <<deps-pkg>>
+      on_macos do
+         depends_on "gcc@13"
+      end
+      on_linux do
+         depends_on "gcc@13"
+      end
+      fails_with :gcc do
+         version "12" # Select new gcc
+         cause "Make it easy with all the same"
+      end
+
+      fails_with :clang do
+         cause "Must be GCC"
+      end
+
+     <<install-pkg>>
+   end
 
 
-    
+     
 #+end_src
 ** Clang
 #+begin_src ruby :tangle Formula/gerbil-scheme-clang.rb :noweb yes
