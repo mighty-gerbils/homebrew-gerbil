@@ -36,6 +36,7 @@ These packages are literate and tangled from this README.org.
   depends_on "sqlite"
   depends_on "zlib"
 #+end_src
+
 #+begin_src ruby :noweb-ref install-pkg
    def install
     nproc = `nproc`.to_i - 1
@@ -50,7 +51,7 @@ These packages are literate and tangled from this README.org.
     #   ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
     # end
 
-    ENV["GERBIL_GCC"] = ENV.cc.to_s
+   ENV["GERBIL_GCC"] = ENV.cc.to_s
     ENV["CC"] = ENV.cc.to_s
 
     system ENV.cc.to_s, "--version"
@@ -105,24 +106,27 @@ These packages are literate and tangled from this README.org.
 #+end_src
 ** Clang
 #+begin_src ruby :tangle Formula/gerbil-scheme-clang.rb :noweb yes
-  class GerbilSchemeClang < Formula
-    <<start-pkg>>
-    # revision 0
-    <<deps-pkg>>
-    on_macos do
-       depends_on "llvm"
+    class GerbilSchemeClang < Formula
+      <<start-pkg>>
+      # revision 0
+      <<deps-pkg>>
+      on_macos do
+         depends_on "llvm"
+      end
+      on_linux do
+         depends_on "llvm"
+      end
+      fails_with :gcc do
+        cause "this is a clang build"
+      end
+      fails_with :clang do
+        cause "this is an llvm build"
+      end
+      <<install-pkg>>
     end
-    on_linux do
-       depends_on "llvm"
-    end
-    fails_with :gcc do
-      cause "this is a clang build"
-    end
-    <<install-pkg>>
-  end
 
 
-    
+      
 #+end_src
 
 * HACKING
