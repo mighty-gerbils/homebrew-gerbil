@@ -6,7 +6,7 @@ class GerbilSchemeGcc < Formula
       using: :git, revision: "92b1a2f642d6ebbcd3bd223ccc0af7ec0d9a42ad"
   version "0.18.1"
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
-  revision 3
+  # revision 3
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
   depends_on "coreutils" => :build
