@@ -27,11 +27,6 @@ class GerbilSchemeGcc < Formula
   def install
     nproc = `nproc`.to_i - 1
 
-    if OS.mac?
-      ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
-      ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
-    end
-
     if OS.linux?
       ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/bin")
       ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
