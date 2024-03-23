@@ -9,6 +9,13 @@ class GerbilScheme < Formula
   revision 1
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
+  bottle do
+    root_url "https://github.com/mighty-gerbils/homebrew-gerbil/releases/download/gerbil-scheme-0.18.1_1"
+    sha256 arm64_sonoma: "882f379d132dcab6476ff116cff75912d5ce3b253634f779f2ffc8eeb2ff680e"
+    sha256 ventura:      "e1ccb020a5fa90bdeb763bf3d842a27cbae610adbe80379c2508a9161afcd89d"
+    sha256 x86_64_linux: "4b30975596af96ea8e78ff7c352ba7dd6bbac91ad9df34b3e95e83d2ae1861c5"
+  end
+
   depends_on "coreutils" => :build
   depends_on "pkg-config" => :build
   depends_on "openssl@3"
