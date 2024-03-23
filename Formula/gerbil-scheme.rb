@@ -6,7 +6,7 @@ class GerbilScheme < Formula
       using: :git, revision: "92b1a2f642d6ebbcd3bd223ccc0af7ec0d9a42ad"
   version "0.18.1"
   license any_of: ["LGPL-2.1-or-later", "Apache-2.0"]
-  # revision 3
+  revision 1
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
   bottle do
@@ -23,7 +23,7 @@ class GerbilScheme < Formula
   depends_on "sqlite"
   depends_on "zlib"
   on_macos do
-    depends_on "llvm"
+    depends_on "gcc@13"
   end
   on_linux do
     depends_on "gcc@13"
@@ -35,19 +35,14 @@ class GerbilScheme < Formula
   def install
     nproc = `nproc`.to_i - 1
 
-    if OS.mac?
-      ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
-      ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
-    end
-
-    if OS.linux?
-      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/bin")
-      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
-    end
-
     ENV["GERBIL_GCC"] = ENV.cc.to_s
     ENV["CC"] = ENV.cc.to_s
+    ENV["CXX"] = ENV.cxx.to_s
+    ENV["LDFLAGS"] = '-Wl,-ld_classic'
+    ENV["GERBIL_BUILD_CORES"] = nproc.to_s
 
+    system "env"
+    
     system ENV.cc.to_s, "--version"
     system "./configure", "--prefix=#{prefix}", "--enable-march="
     system "make", "-j#{nproc}"

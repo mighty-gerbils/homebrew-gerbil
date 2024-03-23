@@ -6,9 +6,19 @@ brew install mighty-gerbils/gerbil/gerbil-scheme
 
 * How do I install these formulae?
 
-`brew install mighty-gerbils/gerbil/<formula>`
+~brew install mighty-gerbils/gerbil/<formula>~
 
-Or `brew tap mighty-gerbils/gerbil` and then `brew install <formula>`.
+Or ~brew tap mighty-gerbils/gerbil~ and then ~brew install <formula>~.
+
+** Build the HEAD of Master
+
+Sometimes, like for testing pre-release, we want to build and test the
+lastest commit to the =master= branch.
+
+#+begin_src sh
+brew install mighty-gerbils/gerbil/gerbil-scheme
+#+end_src
+
 
 * Documentation
 
@@ -119,10 +129,13 @@ These packages are literate and tangled from this README.org.
 
 * HACKING
 
-Trying to make it work for the github thing means fixing a bunch.
+Trying to make it work for the github thing often means fixing a of
+whitespace and other styles that are frowned upon.
 
-==> brew style --fix  mighty-gerbils/gerbil/gerbil-scheme
+
+#+begin_src sh
+brew style --fix  mighty-gerbils/gerbil/gerbil-scheme
 
 brew audit mighty-gerbils/gerbil/gerbil-scheme --online --new
-
+#+end_src
 
