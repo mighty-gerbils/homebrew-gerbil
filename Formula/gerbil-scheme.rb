@@ -31,10 +31,19 @@ class GerbilScheme < Formula
   def install
     nproc = `nproc`.to_i - 1
 
+    if OS.mac?
+      # ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
+      # ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
+      ENV["LDFLAGS"] = "-Wl,-ld_classic"
+    end
+    if OS.linux?
+      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/bin")
+      ENV.prepend_path("PATH", "/home/linuxbrew/.linuxbrew/sbin")
+    end
+
     ENV["GERBIL_GCC"] = ENV.cc.to_s
-    ENV["CC"] = ENV.cc.to_s
-    ENV["CXX"] = ENV.cxx.to_s
-    ENV["LDFLAGS"] = "-Wl,-ld_classic"
+    # ENV["CC"] = ENV.cc.to_s
+    # ENV["CXX"] = ENV.cxx.to_s
     ENV["GERBIL_BUILD_CORES"] = nproc.to_s
 
     system ENV.cc.to_s, "--version"
