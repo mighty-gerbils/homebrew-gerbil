@@ -24,6 +24,10 @@ class GerbilScheme < Formula
     version "12" # Select new gcc
     cause "Make it easy with all the same"
   end
+  fails_with :clang do
+    cause "Must be GCC"
+  end
+
   def install
     nproc = `nproc`.to_i - 1
 
