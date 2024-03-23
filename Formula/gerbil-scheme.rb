@@ -46,7 +46,7 @@ class GerbilScheme < Formula
     ENV["CXX"] = ENV.cxx.to_s
     ENV["GERBIL_BUILD_CORES"] = nproc.to_s
 
-    system "echo" ENV.cc.to_s
+    system "echo", ENV.cc.to_s
     system ENV.cc.to_s, "--version"
     system "./configure", "--prefix=#{prefix}", "--enable-march="
     system "make", "-j#{nproc}"
