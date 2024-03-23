@@ -9,7 +9,6 @@ class GerbilScheme < Formula
   revision 1
   head "https://github.com/mighty-gerbils/gerbil.git", using: :git, branch: "master"
 
-
   depends_on "coreutils" => :build
   depends_on "pkg-config" => :build
   depends_on "openssl@3"
