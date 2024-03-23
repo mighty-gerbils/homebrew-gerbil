@@ -32,8 +32,8 @@ class GerbilScheme < Formula
     nproc = `nproc`.to_i - 1
 
     if OS.mac?
-      # ENV.prepend_path("PATH", "/usr/local/opt/llvm/bin")
-      # ENV.prepend_path("PATH", "/opt/homebrew/opt/llvm/bin")
+      ENV.prepend_path("PATH", "/usr/local/opt/gcc/bin")
+      ENV.prepend_path("PATH", "/opt/homebrew/opt/gcc/bin")
       ENV["LDFLAGS"] = "-Wl,-ld_classic"
     end
     if OS.linux?
